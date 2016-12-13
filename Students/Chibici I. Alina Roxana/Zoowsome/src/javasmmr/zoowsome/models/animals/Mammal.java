@@ -1,5 +1,11 @@
 package javasmmr.zoowsome.models.animals;
 
+import static javasmmr.zoowsome.repositories.AnimalRepository.createNode;
+import javax.xml.stream.XMLEventWriter;
+import javax.xml.stream.XMLStreamException;
+
+import org.w3c.dom.Element;
+
 public abstract class Mammal extends Animal{
 	
 	//attributes
@@ -31,5 +37,18 @@ public abstract class Mammal extends Animal{
 	@Override
 	public double getPredisposition(){
 		return super.getPredisposition();
+	}
+	
+	@Override
+	public void encodeToXml (XMLEventWriter eventWriter) throws XMLStreamException {
+		super.encodeToXml(eventWriter);
+		createNode (eventWriter, "normalBodyTemp", String.valueOf(getNormalBodyTemp()));
+		createNode (eventWriter, "percBodyHair", String.valueOf(getPercBodyHair()));
+	}
+	
+	@Override
+	public void decodeFromXml (Element element){
+		setNormalBodyTemp (Float.valueOf(element.getElementsByTagName("normalBodyTemp").item(0).getTextContent()));
+		setPercBodyHair (Float.valueOf(element.getElementsByTagName("percBodyHair").item(0).getTextContent()));
 	}
 }

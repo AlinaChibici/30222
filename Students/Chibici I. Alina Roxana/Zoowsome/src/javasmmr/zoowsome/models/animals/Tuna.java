@@ -1,6 +1,10 @@
 package javasmmr.zoowsome.models.animals;
 
+import static javasmmr.zoowsome.repositories.AnimalRepository.createNode;
 import java.time.LocalDateTime;
+import javasmmr.zoowsome.services.factories.Constants;
+import javax.xml.stream.XMLEventWriter;
+import javax.xml.stream.XMLStreamException;
 
 public class Tuna extends Aquatic{
 	
@@ -27,6 +31,12 @@ public class Tuna extends Aquatic{
 		else {
 			return 0.0;
 		}
+	}
+	
+	@Override
+	public void encodeToXml (XMLEventWriter eventWriter) throws XMLStreamException {
+		super.encodeToXml (eventWriter);
+		createNode (eventWriter, Constants.XML_TAGS.DISCRIMINANT, Constants.Animal.Aquatic.TUNA);
 	}
 }
 

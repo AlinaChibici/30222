@@ -54,6 +54,12 @@ public final class Constants {
 			  public static final String TCO_NO_TIME = "NO_TIME";   
 		  } 
 	}
+	
+	public static final class XML_TAGS{
+		public static final String ANIMAL = null; //not sure what to write here
+		public static final String DISCRIMINANT = null;
+		public static final String CARETAKER = null;
+	}
 }
 
 

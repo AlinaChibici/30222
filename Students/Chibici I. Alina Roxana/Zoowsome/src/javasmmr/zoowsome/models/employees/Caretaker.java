@@ -15,6 +15,10 @@ public class Caretaker extends Employee implements Caretaker_I{
 		this.workingHours = workingHours;
 	}
 	
+	public Caretaker() {
+		this ("caretaker", (long)1, BigDecimal.valueOf(2500), (double)40);
+	}
+	
 	//methods
 	public double getWorkingHours() {
 		return workingHours;
@@ -36,4 +40,5 @@ public class Caretaker extends Employee implements Caretaker_I{
 		this.workingHours -= animal.getMaintenanceCost();     
 		return Constants.Employees.Caretakers.TCO_SUCCESS;     
 	}
+	
 }

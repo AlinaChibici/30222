@@ -1,8 +1,14 @@
 package javasmmr.zoowsome.controllers;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
+
 import javasmmr.zoowsome.models.animals.Animal;
 import javasmmr.zoowsome.models.employees.Caretaker;
+import javasmmr.zoowsome.repositories.AnimalRepository;
+import javasmmr.zoowsome.repositories.EmployeeRepository;
 import javasmmr.zoowsome.services.factories.Constants;
 import javasmmr.zoowsome.services.factories.animal.AnimalFactory;
 import javasmmr.zoowsome.services.factories.animal.SpeciesFactory;
@@ -103,5 +109,36 @@ public class MainController {
 		for (int i = 0; i < Constants.NUMBER_OF_ANIMALS; i++){
 			System.out.println (zoowsomeAnimals[i].getName() + "  - taken care of status: " + zoowsomeAnimals[i].getTakenCareOf()) ;
 		}
+		
+		/*for(int i = 0; i <= Constants.NUMBER_OF_ANIMALS; i++){
+			for (@SuppressWarnings("rawtypes") Class clazz : Constants.Animal.class.getClasses()) {
+				for (Field field : clazz.getDeclaredFields()) {
+					try {
+						System.out.println(field.get(clazz));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}*/
+	
+		ArrayList<Animal> animals = new ArrayList<Animal>();
+		for (int i = 0; i < Constants.NUMBER_OF_ANIMALS; i++){
+			animals.add(zoowsomeAnimals[i]);
+		}
+			
+		AnimalRepository animalRepository = new AnimalRepository();
+		animalRepository.save(animals);
+		ArrayList<Animal> loadAnimals = new ArrayList<Animal>();
+		loadAnimals = animalRepository.load();
+		
+		ArrayList<Caretaker> caretakers = new ArrayList<Caretaker>();
+		EmployeeRepository employeeRepository = new EmployeeRepository();
+		for(int i = 0; i < Constants.NUMBER_OF_CARETAKERS; i++){
+			caretakers.add(zoowsomeCaretakers[i]);
+		}
+		employeeRepository.save(caretakers);
+		ArrayList<Caretaker> loadCaretakers = new ArrayList<Caretaker>();
+		loadCaretakers = employeeRepository.load();
 	}
 }
